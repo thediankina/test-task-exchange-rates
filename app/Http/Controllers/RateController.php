@@ -57,14 +57,15 @@ class RateController extends Controller
     {
         if ($request->input('ids')) {
             $changes = array_flip($request->input('ids'));
-            // Установка отслеживаемых валют
+            // Фиксация отслеживаемых валют
             $selected = array_map(fn($key) => 1, $changes);
-            // Получить разницу между массивами
-            //dd(array_diff($this->settings, $selected));
-            $this->settings = array_merge($this->settings, $selected);
-            Rate::query()
-                ->whereIn('id', array_keys($selected))
-                ->update(['track' => 1]);
+            // Применение к существующим настройкам
+            foreach ($this->settings as $id => $track) {
+                $this->settings[$id] = array_key_exists($id, $selected) ? 1 : 0;
+                Rate::query()
+                    ->where('id', '=', $id)
+                    ->update(['track' => $this->settings[$id]]);
+            }
         }
     }
 }

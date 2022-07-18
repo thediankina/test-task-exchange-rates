@@ -12,7 +12,8 @@
     @csrf
     <div class="checkbox-codes">
         @foreach($codes as $code)
-            <input type="checkbox" id="code" name="ids[]" value="{{ $code['id'] }}">
+            <input type="checkbox" id="code" name="ids[]"
+                   value="{{ $code['id'] }}" {{ $code['track'] == 1 ? 'checked' : '' }}>
             <label for="code">{{ $code['char_code'] }}</label>
         @endforeach
     </div>

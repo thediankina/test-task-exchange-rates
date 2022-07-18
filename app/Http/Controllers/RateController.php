@@ -41,7 +41,7 @@ class RateController extends Controller
     public function index(): View
     {
         $codes = Rate::query()
-            ->select(['id', 'char_code'])
+            ->select(['id', 'char_code', 'track'])
             ->get()
             ->toArray();
 
@@ -52,8 +52,9 @@ class RateController extends Controller
      * Обновить список отслеживаемых курсов
      *
      * @param Request $request
+     * @return View
      */
-    public function update(Request $request)
+    public function update(Request $request): View
     {
         if ($request->input('ids')) {
             $changes = array_flip($request->input('ids'));
@@ -67,5 +68,6 @@ class RateController extends Controller
                     ->update(['track' => $this->settings[$id]]);
             }
         }
+        return view('update');
     }
 }

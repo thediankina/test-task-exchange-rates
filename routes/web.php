@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+Route::controller(RateController::class)->group(function () {
+    Route::get('/settings', 'index');
+    Route::post('settings/update', 'update');
 });

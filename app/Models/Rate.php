@@ -17,7 +17,14 @@ class Rate extends Model
     protected $table = 'rate_information';
 
     /**
-     * Тип данных для auto increment идентификаторов
+     * Не auto-increment id
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * Тип данных для primary key
      *
      * @var string
      */

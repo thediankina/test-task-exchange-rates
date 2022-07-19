@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\RateController;
+use App\Http\Controllers\Script\MainController;
+use App\Http\Controllers\Script\RateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::controller(RateController::class)->group(function () {
+Route::controller(MainController::class)->group(function () {
     Route::get('/settings', 'index');
     Route::post('settings/update', 'update');
+});
+
+Route::controller(RateController::class)->group(function () {
+    Route::get('/rates', 'index');
 });

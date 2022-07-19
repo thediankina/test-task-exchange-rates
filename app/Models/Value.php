@@ -12,4 +12,11 @@ class Value extends Model
      * @var string
      */
     protected $table = 'rate_value';
+
+    /**
+     * Массово назначаемые атрибуты
+     *
+     * @var array
+     */
+    protected $fillable = ['id_rate', 'value'];
 }

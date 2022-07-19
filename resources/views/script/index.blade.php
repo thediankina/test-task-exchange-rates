@@ -17,7 +17,7 @@
     <button type="submit">Выбрать</button>
 </form>
 
-<a href="/rates">Values</a>
+<a href="/values">Values</a>
 
 <script>
     $('#tracing-form').on('submit', function (event) {

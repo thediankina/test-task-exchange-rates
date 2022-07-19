@@ -36,6 +36,13 @@ return [
             'throw' => false,
         ],
 
+        'script' => [
+            'driver' => 'local',
+            'root' => storage_path('app/script'),
+            'url' => env('APP_URL').'/script/storage',
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

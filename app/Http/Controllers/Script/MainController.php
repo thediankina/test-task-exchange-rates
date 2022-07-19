@@ -13,67 +13,42 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     /**
-     * Настройки отслеживания
-     *
-     * @var array
-     */
-    protected array $settings;
-
-    /**
-     * Конструктор, получающий настройки
-     */
-    public function __construct()
-    {
-        $sets = Rate::query()
-            ->select(['id', 'track'])
-            ->get()
-            ->toArray();
-
-        foreach ($sets as $set) {
-            $this->settings[$set['id']] = $set['track'];
-        }
-    }
-
-    /**
-     * Получить текущие настройки
+     * Получить текущие настройки отслеживания
      *
      * @return View
      */
     public function index(): View
     {
         $codes = Rate::query()
-            ->select(['id', 'char_code', 'track'])
+            ->select(['id', 'char_code'])
             ->get()
             ->toArray();
+
+        // Добавление признака отслеживания
+        array_walk($codes, function ($code, $key) use (&$codes) {
+            $trace = $this->settings[$code['id']] == 1 ? 1 : 0;
+            $codes[$key]['trace'] = $trace;
+        });
 
         return view('script/index', ['codes' => $codes]);
     }
 
     /**
-     * Изменить список отслеживаемых валют
+     * Внести изменения в список отслеживаемых валют
      *
      * @param Request $request
      */
     public function update(Request $request)
     {
+        // Разбор полученных данных
         $selected = array_flip($request->input('ids') ?? []);
-
-        // Отметка выбранных валют
-        // $selected = array_map(fn($key) => 1, $changes);
-
         foreach ($this->settings as $id => $status) {
             $selected[$id] = array_key_exists($id, $selected) ? 1 : 0;
         }
-
-        // Фиксация изменений отметок
+        // Фиксация изменений
         $settings = array_diff_assoc($selected, $this->settings);
 
         // Применение к существующим настройкам
         $this->settings = array_merge($this->settings, $settings);
-        foreach ($settings as $id => $status) {
-            Rate::query()
-                ->where('id', '=', $id)
-                ->update(['track' => $this->settings[$id]]);
-        }
     }
 }

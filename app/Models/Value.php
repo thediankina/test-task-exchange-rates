@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Value extends Model
 {
@@ -19,4 +20,14 @@ class Value extends Model
      * @var array
      */
     protected $fillable = ['id_rate', 'value'];
+
+    /**
+     * @var integer
+     */
+    public $visible;
+
+    public function code(): HasOne
+    {
+        return $this->hasOne(Rate::class, 'id', 'id_rate');
+    }
 }

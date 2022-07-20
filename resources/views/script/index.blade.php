@@ -17,25 +17,24 @@
     <button type="submit">Выбрать</button>
 </form>
 
-<a href="/values">Values</a>
+<a href="/">Widget</a>
+    <script>
+        $('#tracing-form').on('submit', function (event) {
+            event.preventDefault();
 
-<script>
-    $('#tracing-form').on('submit', function (event) {
-        event.preventDefault();
+            let ids = [];
+            $('input:checked').each(function () {
+                ids.push(this.value);
+            });
 
-        let ids = [];
-        $('input:checked').each(function () {
-            ids.push(this.value);
+            $.ajax({
+                url: "/settings/update",
+                type: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    ids: ids,
+                },
+            });
         });
-
-        $.ajax({
-            url: "/settings/update",
-            type: "POST",
-            data: {
-                "_token": "{{ csrf_token() }}",
-                ids: ids,
-            },
-        });
-    });
-</script>
+    </script>
 @endsection

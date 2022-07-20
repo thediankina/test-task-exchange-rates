@@ -44,6 +44,6 @@ class Rate extends Model
      */
     public function values(): HasMany
     {
-        return $this->hasMany(Value::class);
+        return $this->hasMany(Value::class, 'id_rate', 'id');
     }
 }

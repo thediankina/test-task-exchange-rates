@@ -1,22 +1,16 @@
 <?php
 
-use App\Http\Controllers\Script\MainController;
+use App\Http\Controllers\Script\MainController as ScriptController;
+use App\Http\Controllers\Widget\MainController as WidgetController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::controller(MainController::class)->group(function () {
+Route::controller(ScriptController::class)->group(function () {
     Route::get('/settings', 'index');
     Route::post('settings/update', 'update');
-    Route::get('/values', 'show');
-    Route::get('/values/refresh', 'refresh');
+});
+
+Route::controller(WidgetController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::post('widget/update', 'update');
+    Route::get('widget/refresh', 'refresh');
 });

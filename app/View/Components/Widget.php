@@ -3,9 +3,9 @@
 namespace App\View\Components;
 
 use App\Models\Rate;
+use App\Models\Value;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\Component;
 
 class Widget extends Component
@@ -16,37 +16,51 @@ class Widget extends Component
     protected Collection $rates;
 
     /**
-     * Создать экземпляр виджета
+     * Конструктор
      *
      * @return void
      */
     public function __construct()
     {
-        $json = Storage::disk('widget')->get('settings.js');
-        $data = json_decode($json, true);
-        $settings = array_keys($data, config('constants.selected'));
-        $this->rates = Rate::all(['id', 'char_code'])->whereIn('id', $settings);
-        //dd($this->rates);
+        // Получение настроек видимости
+        $component = new Settings();
+        $settings = $component::$visibility;
+
+        // Вывод значений выбранных курсов валют
+        $selected = array_keys($settings, config('constants.selected'));
+        $this->rates = Rate::all()->whereIn('id', $selected);
+
+        // Получение разницы между значениями курсов вчера и сегодня
+        foreach ($this->rates as $rate) {
+            $rate->values->last = $rate->values->last()->value;
+            $changes = Value::query()
+                ->where('id_rate', '=', $rate->id)
+                ->orderBy('created_at', 'desc')
+                -> take(2)
+                ->get()
+                ->toArray();
+
+            $values = array_column($changes, 'value');
+            foreach ($values as $id => $value) {
+                $values[$id] = Value::convert($value);
+            }
+
+            // Определение знака
+            $difference = $values[0] - $values[1];
+            $sign = (($difference) <=> 0) == 1;
+            $difference = strval(abs($difference));
+            $rate->values->increasing = $sign;
+            $rate->values->difference = Value::convert($difference);
+        }
     }
 
     /**
-     * Отобразить представление для компонента
+     * Генерация вида
      *
      * @return View
      */
     public function render(): View
     {
-        return view('widget.index');
-    }
-
-    /**
-     * Привязка данных к представлению
-     *
-     * @param View $view
-     * @return void
-     */
-    public function compose(View $view): void
-    {
-        $view->with('rates', $this->rates);
+        return view('widget.index', ['rates' => $this->rates]);
     }
 }

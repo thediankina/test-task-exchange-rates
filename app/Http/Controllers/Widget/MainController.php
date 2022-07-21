@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Widget;
 
 use App\Http\Controllers\Controller;
+use App\Models\Rate;
 use App\Models\Value;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -19,19 +20,25 @@ class MainController extends Controller
      */
     public function index(): View
     {
-        // Получение значений за сегодняшний день
-        $values = Value::query()
-            ->select(['id', 'id_rate', 'value'])
-            ->where('created_at', '=', date('Y-m-d'))
-            ->get();
+        // Получение доступных валют
+        $available = array_filter($this->settings, function ($status) {
+            return ($status == config('constants.selected'));
+        });
 
-        // Добавление признака видимости
-        foreach ($values as $value) {
-            $visible = $this->visibility[$value->id_rate] == 1 ? 1 : 0;
-            $value->visible = $visible;
+        $rates = Rate::all()
+            ->whereIn('id', array_keys($available))
+            ->toArray();
+
+        // Получение и отметка видимости валют
+        $visible = array_filter($this->visibility, function ($status) {
+            return ($status == config('constants.selected'));
+        });
+
+        foreach ($rates as $id => $rate) {
+            $rates[$id]['visible'] = array_key_exists($rate['id'], $visible) ? 1 : 0;
         }
 
-        return view('index', ['values' => $values]);
+        return view('index', ['rates' => $rates]);
     }
 
     /**
@@ -57,31 +64,31 @@ class MainController extends Controller
     /**
      * Обновить значения
      *
-     * @param Request $request
      * @return void
      */
-    public function refresh(Request $request): void
+    public function refresh(): void
     {
         // Обновление из XML
         $xml = simplexml_load_file(config('constants.source'));
+
         if ($xml) {
             // Получение разрешений на отслеживание
             $settings = array_filter($this->settings, function ($status) {
                 return $status == config('constants.selected') ?? false;
             });
+
             $rates = $xml->children()->Valute;
+
             foreach ($rates as $rate) {
                 $id = (string) $rate->attributes()->ID;
+
                 // Проверка наличия разрешения на валюту
                 if (array_key_exists($id, $settings)) {
+                    $attributes = ['id_rate' => $id, 'created_at' => date('Y-m-d')];
                     $value = (string) $rate->children()->Value;
+
                     // Если нет значения за сегодня, то добавить, иначе обновить
-                    $today = date('Y-m-d');
-                    Value::query()
-                        ->updateOrCreate(
-                            ['id_rate' => $id, 'created_at' => $today],
-                            ['value' => $value]
-                        );
+                    Value::query()->updateOrCreate($attributes, ['value' => $value]);
                 }
             }
         } else {

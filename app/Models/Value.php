@@ -31,7 +31,7 @@ class Value extends Model
     /**
      * Признак увеличения значения по отношению к предыдущему дню
      *
-     * @var bool
+     * @var bool|null
      */
     public bool $increasing;
 
@@ -42,6 +42,11 @@ class Value extends Model
      */
     public string $difference;
 
+    /**
+     * Получение названия валюты
+     *
+     * @return HasOne
+     */
     public function code(): HasOne
     {
         return $this->hasOne(Rate::class, 'id', 'id_rate');

@@ -5,19 +5,20 @@
 @endsection
 
 @section('content')
-<form method="post" id="tracing-form" action="settings/update">
-    @csrf
-    <div class="checkbox-codes">
-        @foreach($codes as $code)
-            <input type="checkbox" id="code" name="ids[]"
-                   value="{{ $code['id'] }}" {{ $code['trace'] ? 'checked' : '' }}>
-            <label for="code">{{ $code['char_code'] }}</label>
-        @endforeach
-    </div>
-    <button type="submit">Выбрать</button>
-</form>
+    <p>Настройки отслеживания</p>
+    <form method="post" id="tracing-form" action="settings/update">
+        @csrf
+        <div class="checkbox-codes">
+            @foreach($codes as $code)
+                <input type="checkbox" id="code" name="ids[]"
+                       value="{{ $code['id'] }}" {{ $code['trace'] ? 'checked' : '' }}>
+                <label for="code">{{ $code['char_code'] }}</label>
+            @endforeach
+        </div>
+        <button type="submit">Выбрать</button>
+    </form>
 
-<a href="/">Widget</a>
+    <a href="/">Widget</a>
     <script>
         $('#tracing-form').on('submit', function (event) {
             event.preventDefault();

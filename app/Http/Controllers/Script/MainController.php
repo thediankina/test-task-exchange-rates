@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 /**
- * Контроллер для управления настройками
+ * Контроллер для управления скриптом
  */
 class MainController extends Controller
 {
@@ -30,7 +30,7 @@ class MainController extends Controller
             $codes[$key]['trace'] = $trace;
         });
 
-        return view('script.index', ['codes' => $codes]);
+        return view('script.settings', ['codes' => $codes]);
     }
 
     /**

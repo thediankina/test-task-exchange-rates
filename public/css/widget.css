@@ -1,0 +1,16 @@
+.widget {
+    width: 100%;
+    display: table;
+    border-collapse: collapse;
+    border: 1px solid #C4C4C4;
+}
+
+p {
+    display: table-row;
+    border-bottom: 1px solid #C4C4C4;
+}
+
+.cell {
+    display: table-cell;
+    vertical-align: middle;
+}

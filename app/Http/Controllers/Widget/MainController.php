@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Widget;
 
 use App\Http\Controllers\Controller;
-use App\Models\Rate;
 use App\Models\Value;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 /**
@@ -13,34 +11,6 @@ use Illuminate\Http\Request;
  */
 class MainController extends Controller
 {
-    /**
-     * Получить значения курсов
-     *
-     * @return View
-     */
-    public function index(): View
-    {
-        // Получение доступных валют
-        $available = array_filter($this->settings, function ($status) {
-            return ($status == config('constants.selected'));
-        });
-
-        $rates = Rate::all()
-            ->whereIn('id', array_keys($available))
-            ->toArray();
-
-        // Получение и отметка видимости валют
-        $visible = array_filter($this->visibility, function ($status) {
-            return ($status == config('constants.selected'));
-        });
-
-        foreach ($rates as $id => $rate) {
-            $rates[$id]['visible'] = array_key_exists($rate['id'], $visible) ? 1 : 0;
-        }
-
-        return view('index', ['rates' => $rates]);
-    }
-
     /**
      * Внести изменения в список отображаемых
      *

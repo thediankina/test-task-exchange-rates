@@ -1,20 +1,21 @@
 <div class="widget">
     @foreach($rates as $rate)
-        <div class="rate">
-            <div class="code">
-                {{ $rate->char_code }}
-            </div>
-            <div class="value">
-                {{ $rate->values->last }}
-                <div class="status">
-                    @if($rate->values->increasing)
-                        &uarr;
-                    @else
-                        &darr;
-                    @endif
-                    {{ $rate->values->difference }}
+        <p>
+            <div class="cell">
+                <div class="name">
+                    {{ $rate->nominal }}&nbsp;{{ $rate->char_code }}<br>
+                    {{ $rate->name }}
                 </div>
             </div>
-        </div>
+            <div class="cell">{{ $rate->values->last }}</div>
+            <div class="cell">
+                @if($rate->values->increasing)
+                    &uarr;
+                @else
+                    {{ html_entity_decode(is_null($rate->values->increasing) ? '&ndash;' : '&darr;') }}
+                @endif
+            </div>
+            <div class="cell">{{ $rate->values->difference }}</div>
+        <p>
     @endforeach
 </div>

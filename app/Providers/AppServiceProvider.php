@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\View\Components\Settings;
 use App\View\Components\Widget;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -26,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Blade::component('widget', Widget::class);
+        Blade::component('settings', Settings::class);
     }
 }

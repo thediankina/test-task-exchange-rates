@@ -32,7 +32,8 @@ class Widget extends Component
 
         // Получение разницы между значениями курсов вчера и сегодня
         foreach ($this->rates as $rate) {
-            $rate->values->last = $rate->values->last()->value;
+            $last = $rate->values->last();
+            $rate->values->last = $last->value ?? config('constants.empty');
             $changes = Value::query()
                 ->where('id_rate', '=', $rate->id)
                 ->orderBy('created_at', 'desc')
@@ -45,12 +46,18 @@ class Widget extends Component
                 $values[$id] = Value::convert($value);
             }
 
-            // Определение знака
-            $difference = $values[0] - $values[1];
-            $sign = (($difference) <=> 0) == 1;
-            $difference = strval(abs($difference));
-            $rate->values->increasing = $sign;
-            $rate->values->difference = Value::convert($difference);
+            if (count($values) == 2) {
+                // Определение знака
+                $difference = $values[0] - $values[1];
+                $sign = (($difference) <=> 0) == 1;
+                $difference = strval(abs($difference));
+                $rate->values->increasing = $sign;
+                $rate->values->difference = Value::convert($difference);
+            } else {
+                // Если курс отслеживается впервые
+                $rate->values->increasing = null;
+                $rate->values->difference = config('constants.empty');
+            }
         }
     }
 

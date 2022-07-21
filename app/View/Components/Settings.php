@@ -29,14 +29,39 @@ class Settings extends Component
     private array $ids;
 
     /**
+     * Checkbox структура для настроек видимости
+     *
+     * @var array
+     */
+    public array $rates;
+
+    /**
      * Конструктор
      *
      * @return void
      */
     public function __construct()
     {
-        self::$settings = ($this->get('script')) ?? $this->init('script');
-        self::$visibility = ($this->get('widget')) ?? $this->init('widget');
+        self::$settings = $this->get('script') ?? $this->init();
+        self::$visibility = $this->get('widget') ?? $this->init();
+
+        // Получение доступных валют
+        $available = array_filter(self::$settings, function ($status) {
+            return ($status == config('constants.selected'));
+        });
+
+        $this->rates = Rate::all()
+            ->whereIn('id', array_keys($available))
+            ->toArray();
+
+        // Получение и отметка видимости валют
+        $visible = array_filter(self::$visibility, function ($status) {
+            return ($status == config('constants.selected'));
+        });
+
+        foreach ($this->rates as $id => $rate) {
+            $this->rates[$id]['visible'] = array_key_exists($rate['id'], $visible) ? 1 : 0;
+        }
     }
 
     /**
@@ -59,7 +84,7 @@ class Settings extends Component
     private function get(string $disk): mixed
     {
         $json = Storage::disk($disk)->get('settings.js');
-        return is_null($json) ? false : json_decode($json, true);
+        return is_null($json) ? null : json_decode($json, true);
     }
 
     /**
@@ -78,11 +103,10 @@ class Settings extends Component
     /**
      * Инициализация настроек
      *
-     * @param string $disk
      * @param array $settings
      * @return array
      */
-    public function init(string $disk, array $settings = []): array
+    public function init(array $settings = []): array
     {
         if (!isset($this->ids)) {
             $this->ids = Rate::query()
@@ -103,6 +127,6 @@ class Settings extends Component
      */
     public function render(): View
     {
-        return view('settings.index');
+        return view('widget.settings');
     }
 }

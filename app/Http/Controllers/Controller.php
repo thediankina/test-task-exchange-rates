@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\View\Components\Settings;
+use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -26,6 +27,16 @@ class Controller extends BaseController
      * @var array
      */
     protected array $visibility;
+
+    /**
+     * Вывести главную страницу
+     *
+     * @return View
+     */
+    public function index(): View
+    {
+        return view('index');
+    }
 
     /**
      * Конструктор

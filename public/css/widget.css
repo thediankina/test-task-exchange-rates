@@ -1,11 +1,21 @@
-.widget {
-    width: 100%;
-    display: table;
-    border-collapse: collapse;
-    border: 1px solid #C4C4C4;
+body {
+    font-family: 'Noto Sans', sans-serif;
 }
 
-p {
+.widget {
+    display: grid;
+    align-items: center;
+    border: 1px solid #C4C4C4;
+    border-radius: 20px;
+    padding: 5px 20px;
+}
+
+.frame {
+    display: table;
+    border-collapse: collapse;
+}
+
+.row {
     display: table-row;
     border-bottom: 1px solid #C4C4C4;
 }
@@ -13,4 +23,24 @@ p {
 .cell {
     display: table-cell;
     vertical-align: middle;
+    font-size: 0.9em;
+}
+
+.row:last-child {
+    border-bottom: none;
+}
+
+.rate {
+    font-weight: 500 !important;
+    margin: 10px 25px;
+}
+
+.name {
+    color: #686868;
+    font-size: smaller;
+}
+
+.difference {
+    font-size: smaller;
+    margin-right: 25px;
 }

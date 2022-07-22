@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * Модель таблицы значений курсов валют
+ */
 class Value extends Model
 {
     /**
@@ -33,7 +36,7 @@ class Value extends Model
      *
      * @var bool|null
      */
-    public bool $increasing;
+    public bool|null $increasing;
 
     /**
      * Числовое изменение значения по отношению к предыдущему дню

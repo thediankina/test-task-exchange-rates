@@ -7,6 +7,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\Component;
 
+/**
+ * Компонент "Настройки"
+ */
 class Settings extends Component
 {
     /**
@@ -29,7 +32,7 @@ class Settings extends Component
     private array $ids;
 
     /**
-     * Checkbox структура для настроек видимости
+     * Checkbox настроек видимости
      *
      * @var array
      */

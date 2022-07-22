@@ -5,4 +5,5 @@ return [
     'unselected' => 0,
     'selected' => 1,
     'empty' => html_entity_decode('&nbsp;&ndash;&nbsp;&ndash;'),
+    'percent' => html_entity_decode('&nbsp;%'),
 ];

@@ -1,5 +1,4 @@
 <div class="settings">
-    <p>Настройки видимости</p>
     <form method="post" id="visibility-form" action="widget/update">
         @csrf
         <div class="checkbox-codes">
@@ -11,8 +10,7 @@
         </div>
         <button type="submit">Выбрать</button>
     </form>
-    <a href="widget/refresh">Обновить</a>
-    <script>
+    <script type="text/javascript">
         $('#visibility-form').on('submit', function (event) {
             event.preventDefault();
 

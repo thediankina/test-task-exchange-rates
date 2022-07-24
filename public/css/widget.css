@@ -7,40 +7,75 @@ body {
     align-items: center;
     border: 1px solid #C4C4C4;
     border-radius: 20px;
-    padding: 5px 20px;
+    font-size: 16px !important;
 }
 
+.settings {
+}
+
+/* Кнопки настроек */
+#available-icon {
+    display: inline;
+}
+
+#visible-icon {
+    display: inline;
+    cursor: pointer;
+}
+
+/* Настройки видимости */
+#settings-component {
+    width: 100%;
+}
+
+#visibility-form {
+    font-size: smaller;
+}
+
+/* Каркас для элементов */
 .frame {
+    margin: 15px 25px;
+}
+
+/* Удаление лишних отступов */
+.frame:first-of-type {
+    margin-bottom: 0;
+}
+
+.frame:last-of-type {
+    margin-top: 0;
+}
+
+/* Таблица с значениями */
+#values-component {
     display: table;
     border-collapse: collapse;
+    width: 100%;
 }
 
 .row {
     display: table-row;
     border-bottom: 1px solid #C4C4C4;
-}
-
-.cell {
-    display: table-cell;
-    vertical-align: middle;
-    font-size: 0.9em;
+    height: 40px;
 }
 
 .row:last-child {
     border-bottom: none;
 }
 
+/* Формартирование ячейки таблицы */
+.cell {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: smaller;
+}
+
+/* Выделение названия валюты */
 .rate {
     font-weight: 500 !important;
-    margin: 10px 25px;
 }
 
 .name {
     color: #686868;
     font-size: smaller;
-}
-
-.difference {
-    font-size: smaller;
-    margin-right: 25px;
 }

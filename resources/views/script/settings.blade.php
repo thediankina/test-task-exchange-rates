@@ -19,7 +19,7 @@
     </form>
 
     <a href="/">Widget</a>
-    <script>
+    <script type="text/javascript">
         $('#tracing-form').on('submit', function (event) {
             event.preventDefault();
 

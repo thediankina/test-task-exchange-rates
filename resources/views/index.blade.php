@@ -5,6 +5,5 @@
 @endsection
 
 @section('content')
-    <a href="/settings" hidden>Настройки отслеживания</a>
-    <x-widget size="30%"></x-widget>
+    <x-widget size="50%"></x-widget>
 @endsection

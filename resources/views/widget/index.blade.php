@@ -47,74 +47,76 @@
             <x-settings></x-settings>
         </div>
     </div>
-</div>
+    <script type="text/javascript">
 
-<script type="text/javascript">
+        // Дать возможность переключать вид
+        render();
 
-    // Дать возможность переключать вид
-    render();
+        // Отключить кеширование
+        $.ajaxSetup({
+            cache: false
+        });
 
-    // Отключить кеширование
-    $.ajaxSetup({
-        cache: false
-    });
+        // Взять значение интервала из ползунка
+        let interval = slider.value * 60 * 1000;
 
-    // Установка интервала обновления содержимого
-    setInterval(function () {
-        // Перезагрузить данные блока #values
-        $("#values").load("/ #values > *");
-    }, 1000000);
+        // Установка интервала обновления содержимого
+        setInterval(function () {
+            // Перезагрузить данные блока #values
+            $("#values").load("/ #values > *");
+        }, interval);
 
-    // Отображение виджета
-    function render() {
-        // Получение блоков значений и настроек
-        let values = document.getElementById("values-component");
-        let settings = document.getElementById("settings-component");
+        // Отображение виджета
+        function render() {
+            // Получение блоков значений и настроек
+            let values = document.getElementById("values-component");
+            let settings = document.getElementById("settings-component");
 
-        // Кнопка для смены вывода
-        let button = document.getElementById("visible-icon");
+            // Кнопка для смены вывода
+            let button = document.getElementById("visible-icon");
 
-        // При нажатии на кнопку изменить вывод в окне виджета
-        button.addEventListener("click", function () {
-            if (settings.hidden && !values.hidden) {
-                settings.hidden = false;
-                values.hidden = true;
-            } else {
-                if (values.hidden && !settings.hidden) {
-                    values.hidden = false;
-                    settings.hidden = true;
+            // При нажатии на кнопку изменить вывод в окне виджета
+            button.addEventListener("click", function () {
+                if (settings.hidden && !values.hidden) {
+                    settings.hidden = false;
+                    values.hidden = true;
+                } else {
+                    if (values.hidden && !settings.hidden) {
+                        values.hidden = false;
+                        settings.hidden = true;
+                    }
                 }
-            }
-        });
-    }
-
-    // Отображение виджета (old)
-    /*function renderWidget(clone) {
-        // Получение окна виджета, блоков значений и настроек
-        let container = document.getElementById("container");
-        let values = document.getElementById("values-component");
-        let settings = document.getElementById("settings-component");
-
-
-        // Установка значений по умолчанию
-        removeAll(container);
-        container.appendChild(values);
-
-        let button = document.getElementById("visible-icon");
-
-        // При нажатии на значок изменить вывод в окне
-        button.addEventListener("click", function () {
-            let child = container.firstChild;
-
-            container.removeChild(child);
-            container.appendChild(child === settings ? values : settings);
-        });
-    }
-
-    // Очищение блока виджета
-    function removeAll(parent) {
-        while (parent.firstChild) {
-            parent.removeChild(parent.firstChild);
+            });
         }
-    }*/
-</script>
+
+        // Отображение виджета (old)
+        /*function renderWidget(clone) {
+            // Получение окна виджета, блоков значений и настроек
+            let container = document.getElementById("container");
+            let values = document.getElementById("values-component");
+            let settings = document.getElementById("settings-component");
+
+
+            // Установка значений по умолчанию
+            removeAll(container);
+            container.appendChild(values);
+
+            let button = document.getElementById("visible-icon");
+
+            // При нажатии на значок изменить вывод в окне
+            button.addEventListener("click", function () {
+                let child = container.firstChild;
+
+                container.removeChild(child);
+                container.appendChild(child === settings ? values : settings);
+            });
+        }
+
+        // Очищение блока виджета
+        function removeAll(parent) {
+            while (parent.firstChild) {
+                parent.removeChild(parent.firstChild);
+            }
+        }*/
+    </script>
+</div>

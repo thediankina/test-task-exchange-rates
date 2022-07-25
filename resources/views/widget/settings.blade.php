@@ -22,6 +22,9 @@
         let slider = document.getElementById("slider");
         let currentInterval = document.getElementById("current-interval");
 
+        // Установленное значение интервала
+        slider.value = {{ (int)$current }};
+
         // Привести текущий интервал в читаемый вид
         convert(slider.value);
 
@@ -53,6 +56,7 @@
                 },
                 success: function () {
                     $("#values").load("/ #values > *");
+                    $("#interval").load("/ #interval");
                 },
             });
         });

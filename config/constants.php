@@ -6,4 +6,5 @@ return [
     'selected' => 1,
     'empty' => html_entity_decode('&nbsp;&ndash;&nbsp;&ndash;'),
     'percent' => html_entity_decode('&nbsp;%'),
+    'interval' => 30,
 ];

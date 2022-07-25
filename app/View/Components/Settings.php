@@ -27,14 +27,32 @@ class Settings extends Component
     public static array $visibility;
 
     /**
+     * Интервал обновления (виджета)
+     *
+     * @var int
+     */
+    public static int $interval;
+
+    /**
+     * Идентификаторы валют
+     *
      * @var array
      */
     private array $ids;
 
     /**
+     * Настройки видимости (для checkbox)
+     *
      * @var array
      */
     public array $rates;
+
+    /**
+     * Текущее значение интервала
+     *
+     * @var int
+     */
+    public int $current;
 
     /**
      * Конструктор
@@ -43,8 +61,17 @@ class Settings extends Component
      */
     public function __construct()
     {
-        self::$settings = $this->get('script') ?? $this->init();
-        self::$visibility = $this->get('widget') ?? $this->init();
+        // Получение интервала
+        $default = config('constants.interval');
+        $interval = $this->get('widget', 'interval.js');
+        self::$interval = intval(is_null($interval) ? $default : json_decode($interval));
+
+        // Получение/инициализация настроек
+        self::$settings = $this->get('script', 'settings.js') ?? $this->init();
+        self::$visibility = $this->get('widget', 'settings.js') ?? $this->init();
+
+        // Отметка текущего интервала
+        $this->current = self::$interval;
 
         // Получение доступных валют
         $available = array_filter(self::$settings, function ($status) {
@@ -72,19 +99,24 @@ class Settings extends Component
      */
     public function __destruct()
     {
-        $this->put('script', self::$settings);
-        $this->put('widget', self::$visibility);
+        // Сохранение текущих настроек
+        $this->put('script', self::$settings, 'settings.js');
+        $this->put('widget', self::$visibility, 'settings.js');
+
+        // Сохранение текущего интервала
+        $this->put('widget', self::$interval, 'interval.js');
     }
 
     /**
      * Получить настройки из файла
      *
      * @param string $disk
+     * @param string $filename
      * @return mixed
      */
-    private function get(string $disk): mixed
+    private function get(string $disk, string $filename): mixed
     {
-        $json = Storage::disk($disk)->get('settings.js');
+        $json = Storage::disk($disk)->get($filename);
         return is_null($json) ? null : json_decode($json, true);
     }
 
@@ -92,13 +124,14 @@ class Settings extends Component
      * Сохранить настройки
      *
      * @param string $disk
-     * @param array $settings
+     * @param array|int $settings
+     * @param string $filename
      * @return void
      */
-    private function put(string $disk, array $settings): void
+    private function put(string $disk, array|int $settings, string $filename): void
     {
         $json = json_encode($settings);
-        Storage::disk($disk)->put('settings.js', $json);
+        Storage::disk($disk)->put($filename, $json);
     }
 
     /**

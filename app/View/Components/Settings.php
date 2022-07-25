@@ -32,8 +32,6 @@ class Settings extends Component
     private array $ids;
 
     /**
-     * Checkbox настроек видимости
-     *
      * @var array
      */
     public array $rates;

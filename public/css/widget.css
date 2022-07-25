@@ -3,14 +3,12 @@ body {
 }
 
 .widget {
+    width: 100%;
     display: grid;
     align-items: center;
     border: 1px solid #C4C4C4;
     border-radius: 20px;
     font-size: 16px !important;
-}
-
-.settings {
 }
 
 /* Кнопки настроек */
@@ -23,9 +21,17 @@ body {
     cursor: pointer;
 }
 
-/* Настройки видимости */
+/* Компонент настроек */
 #settings-component {
     width: 100%;
+}
+
+.interval {
+    padding-top: 10px;
+}
+
+.interval-status {
+    display: inline-flex;
 }
 
 #visibility-form {
@@ -46,8 +52,12 @@ body {
     margin-top: 0;
 }
 
-/* Таблица с значениями */
+/* Компонент значений */
 #values-component {
+    width: 100%;
+}
+
+#values {
     display: table;
     border-collapse: collapse;
     width: 100%;

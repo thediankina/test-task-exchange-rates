@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Route;
 Route::controller(ScriptController::class)->group(function () {
     Route::get('/settings', 'index');
     Route::post('settings/update', 'update');
+    Route::get('values/refresh', 'refresh');
 });
 
 Route::controller(WidgetController::class)->group(function () {
     Route::get('/', 'index');
     Route::post('widget/update', 'update');
-    Route::get('widget/refresh', 'refresh');
 });

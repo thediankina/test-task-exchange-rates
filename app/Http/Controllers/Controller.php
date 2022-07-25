@@ -46,6 +46,7 @@ class Controller extends BaseController
     public function __construct()
     {
         $this->component = new Settings();
+        // Выдача настроек контроллерам из хранилищ
         $this->settings = $this->component::$settings;
         $this->visibility = $this->component::$visibility;
     }
@@ -57,6 +58,7 @@ class Controller extends BaseController
      */
     public function __destruct()
     {
+        // Синхронизация настроек после любых действий
         $this->component::$settings = $this->settings;
         $this->component::$visibility = $this->visibility;
     }

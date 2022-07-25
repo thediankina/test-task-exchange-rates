@@ -16,7 +16,7 @@ class Widget extends Component
     /**
      * @var Collection
      */
-    protected Collection $rates;
+    public Collection $rates;
 
     /**
      * Размер компонента
@@ -29,6 +29,7 @@ class Widget extends Component
      * Конструктор
      *
      * @param string $size
+     *
      * @return void
      */
     public function __construct(string $size = "100%")

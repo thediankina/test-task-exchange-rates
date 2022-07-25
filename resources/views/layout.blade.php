@@ -15,5 +15,20 @@
 </head>
 <body>
 @yield('content')
+<script>
+    // Установка интервала запуска скрипта
+    setInterval(function () {
+        $.ajax({
+            url: "/refresh",
+            type: "GET",
+            data: {
+                "_token": "{{ csrf_token() }}",
+            },
+            success: function () {
+                console.log("Values updated");
+            },
+        });
+    }, 5 * 60 * 1000); // Каждые 5 минут
+</script>
 </body>
 </html>

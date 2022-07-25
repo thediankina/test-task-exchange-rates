@@ -30,6 +30,11 @@ body {
     padding-top: 10px;
 }
 
+.interval input[type=range]::-moz-range-track {
+    background-color: #C4C4C4;
+    height: 1px;
+}
+
 .interval-status {
     display: inline-flex;
 }

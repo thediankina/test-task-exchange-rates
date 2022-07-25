@@ -21,7 +21,7 @@ class MainController extends Controller
     public function index(): View
     {
         $codes = Rate::query()
-            ->select(['id', 'char_code'])
+            ->select(['id', 'char_code', 'nominal', 'name'])
             ->get()
             ->toArray();
 

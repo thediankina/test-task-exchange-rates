@@ -5,22 +5,23 @@
 @endsection
 
 @section('content')
-    <p>Настройки отслеживания</p>
+    <a href="/" id="return">На главную</a>
     <form method="post" id="tracing-form" action="settings/update">
         @csrf
         <div class="checkbox-codes">
             @foreach($codes as $code)
-                <input type="checkbox" id="code" name="ids[]"
-                       value="{{ $code['id'] }}" {{ $code['trace'] ? 'checked' : '' }}>
-                <label for="code">{{ $code['char_code'] }}</label>
+                <div class="code">
+                    <input type="checkbox" name="ids[]" value="{{ $code['id'] }}" {{ $code['trace'] ? 'checked' : '' }}>
+                    <div class="label">
+                        {{ $code['nominal'] }}&nbsp;{{ $code['char_code'] }}
+                        <div class="name">{{ $code['name'] }}</div>
+                    </div>
+                </div>
             @endforeach
         </div>
-        <button type="submit">Выбрать</button>
     </form>
-
-    <a href="/">Widget</a>
     <script type="text/javascript">
-        $('#tracing-form').on('submit', function (event) {
+        $('#tracing-form').on('change', function (event) {
             event.preventDefault();
 
             let ids = [];

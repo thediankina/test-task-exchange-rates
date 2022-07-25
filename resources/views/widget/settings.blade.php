@@ -3,9 +3,12 @@
         @csrf
         <div class="checkbox-codes">
             @foreach($rates as $id => $rate)
-                <input type="checkbox" id="code" name="ids[]"
-                       value="{{ $rate['id'] }}" {{ $rate['visible'] ? 'checked' : '' }}>
-                <label for="code">{{ $rate['char_code'] }}</label>
+                <div class="code">
+                    <input type="checkbox" name="ids[]" value="{{ $rate['id'] }}" {{ $rate['visible'] ? 'checked' : '' }}>
+                    <div class="label">
+                        {{ $rate['char_code'] }}
+                    </div>
+                </div>
             @endforeach
         </div>
         <div class="interval">

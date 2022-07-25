@@ -48,7 +48,6 @@
         </div>
     </div>
     <script type="text/javascript">
-
         // Дать возможность переключать вид
         render();
 
@@ -74,7 +73,6 @@
 
             // Кнопка для смены вывода
             let button = document.getElementById("visible-icon");
-
             // При нажатии на кнопку изменить вывод в окне виджета
             button.addEventListener("click", function () {
                 if (settings.hidden && !values.hidden) {

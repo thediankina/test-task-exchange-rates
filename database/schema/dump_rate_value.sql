@@ -40,9 +40,9 @@ INSERT INTO exchange_rates.rate_value (id, id_rate, created_at, updated_at, valu
 INSERT INTO exchange_rates.rate_value (id, id_rate, created_at, updated_at, value) VALUES (62, 'R01010', '2022-07-26', '12:18:13', '39,9217');
 INSERT INTO exchange_rates.rate_value (id, id_rate, created_at, updated_at, value) VALUES (63, 'R01020A', '2022-07-26', '12:18:13', '33,9895');
 INSERT INTO exchange_rates.rate_value (id, id_rate, created_at, updated_at, value) VALUES (64, 'R01035', '2022-07-26', '12:18:13', '69,5696');
-INSERT INTO exchange_rates.rate_value (id, id_rate, created_at, updated_at, value) VALUES (65, 'R01235', '2022-07-26', '12:18:13', '57,7821');
-INSERT INTO exchange_rates.rate_value (id, id_rate, created_at, updated_at, value) VALUES (66, 'R01239', '2022-07-26', '12:18:13', '58,6741');
+INSERT INTO exchange_rates.rate_value (id, id_rate, created_at, updated_at, value) VALUES (65, 'R01235', '2022-07-26', '20:23:33', '58,6605');
+INSERT INTO exchange_rates.rate_value (id, id_rate, created_at, updated_at, value) VALUES (66, 'R01239', '2022-07-26', '20:15:43', '59,4068');
 INSERT INTO exchange_rates.rate_value (id, id_rate, created_at, updated_at, value) VALUES (67, 'R01720', '2022-07-26', '12:18:13', '15,7921');
 INSERT INTO exchange_rates.rate_value (id, id_rate, created_at, updated_at, value) VALUES (68, 'R01775', '2022-07-26', '12:18:13', '59,9710');
 INSERT INTO exchange_rates.rate_value (id, id_rate, created_at, updated_at, value) VALUES (69, 'R01810', '2022-07-26', '12:18:13', '34,3698');
-INSERT INTO exchange_rates.rate_value (id, id_rate, created_at, updated_at, value) VALUES (70, 'R01820', '2022-07-26', '12:18:13', '42,3002');
+INSERT INTO exchange_rates.rate_value (id, id_rate, created_at, updated_at, value) VALUES (70, 'R01820', '2022-07-26', '20:15:43', '42,9905');

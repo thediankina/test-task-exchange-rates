@@ -63,6 +63,7 @@
         setInterval(function () {
             // Перезагрузить данные блока #values
             $("#values").load("/ #values > *");
+            console.log("Widget refreshed");
         }, interval);
 
         // Отображение виджета

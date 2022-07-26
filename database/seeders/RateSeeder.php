@@ -26,7 +26,7 @@ class RateSeeder extends Seeder
             $attributes[] = (int) $rate->children()->Nominal;
             $attributes[] = (string) $rate->children()->Name;
             // Сохранение в базу данных
-            DB::table('rate_information')->insert([
+            DB::table('rate_information')->updateOrInsert([
                 'id' => $attributes[0],
                 'num_code' => $attributes[1],
                 'char_code' => $attributes[2],
